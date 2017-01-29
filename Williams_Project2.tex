@@ -1,0 +1,174 @@
+\documentclass[11pt]{article}
+\usepackage[left = 1in, right = 1in, top = 1in, bottom = 1in ]{geometry}
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{siunitx}
+\usepackage{relsize}
+\usepackage[font={small}]{caption}
+
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+\renewcommand{\baselinestretch}{1.3}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		\Large
+		
+		NE 232 - Quantum Mechanics Project 2\\
+		\vfill
+		
+		\textbf{Applications of the Quantum Harmonic Oscillator in Bond Modelling}
+		
+		\vfill
+		
+					
+		
+		Prepared by:\\
+		Christopher Williams\\
+		20516778\\
+		\today\\
+		%confidential-1
+		
+	\end{center}
+\end{titlepage}
+
+\setlength{\baselineskip}{20pt}
+
+\section{Statement of Thesis}
+The goal of this project is to investigate in detail the characteristics of quantum harmonic oscillators and their feasibility with respect to their application to real-life problems. Before its conclusion, this project aims to answer the the following question:
+\begin{center}
+\textit{\textbf{Is the a quantum mechanical harmonic oscillator a feasible approximation for the chemical bond between hydrogen and a halide? }}
+\end{center}
+
+\section{Background}
+Harmonic motion is ubiquitous in natural and mechanical systems and consequently is of tremendous significance in both classical and quantum physics. In fact, for any realistic oscillatory system, the minima of the corresponding continuous potential can be approximated by the parabolic potential associated with the quantum harmonic oscillator (Figure \ref{fig:LJP}). This is of particular interest for the potential of a chemical bond, around which much of modern scientific theory is based. The quantum harmonic oscillator is also among the few quantum mechanical systems with potentials that can be solved analytically using Schr\"{o}dinger's wave equation.
+ 
+Due to its prevalence and the relative simplicity of the approximation, the quantum harmonic oscillator sees widespread use in all science and science related fields. For example, the quantum harmonic oscillator is used heavily in the study of bonds between a diatomic molecules and has enabled chemists to make accurate predictions about the vibrational behaviour of hydrogen and many other molecules. In physics it can be used to gain insight into the thermal, electronic, and chemical properties of different materials and the theory behind these properties. 
+
+In engineering, molecular dynamics (MD) simulations are recent example of an application of quantum harmonic oscillators. In each simulation the vibrations of the bonds forming the molecules are approximated as simple harmonic oscillations, then distributed across the bonds for the molecules in the system in question. With a potential function, such as the Lennard-Jones Potential pair potential,
+\begin{equation}
+V_{L-J}=\epsilon\cdot\left[\left(\frac{r_0}{r}\right)^{12}-2\left(\frac{r_0}{r}\right)^6 \right]
+\end{equation}
+(pictured in Figure \ref{fig:LJP}) to define the behaviour of the system, the simulation is capable systems of imitating systems as simple as the interaction between two molecules to extremely complicated systems such as the flow of salt water through an ultrathin graphene membrane. Because complex higher level systems such as the aforementioned membrane system, or the folding of a protein cannot usually be approached analytically, molecular dynamics is an extremely powerful tool for gaining insight into the mechanisms behind such systems that would otherwise be nearly impossible to acquire using normal experimental techniques.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{Lennard-Jones}
+\caption[L-J Potential]{ Example of a Lennard Jones Potential (solid) approximated as a simple harmonic oscillator (dashed, blue) \cite{RefWorks:1}}
+\label{fig:LJP}
+\end{center}
+\end{figure}
+
+\section{Methodology}
+This project will employ a straightforward approach for determining the feasibility of the QHO for modelling a hydrogen halide bond. First it will cover, in detail, the characteristics of the quantum harmonic oscillator, and compare its characteristics to other related potentials. Next, the parameters required to model the bond between stable isotopes of hydrogen and chlorine will be calculated using two different methods. A plot of the harmonic potential for HCl will be compared to the harmonic potential of HI, then checked by comparing the implications of the plotted potentials to that of the bond constants (calculated using the aforementioned parameters). Finally, the relationship between classical and quantum mechanical will be investigated, and the time evolution of the system will be analyzed.
+\newpage
+
+\section{Harmonic Oscillator Potentials}
+
+Keeping in line with the proposed methodology for answering the question posed in the thesis, different potentials are first compared to the simple harmonic oscillator potential before the potential for real and more complicated systems are explored. The parameters and scaling used in the initial comparisons are for the most part arbitrary\footnote{The chosen parameters are similar to those used in NE 232 Assignment 5; 1500 discretization used points to ensure accuracy} and were chosen to make making comparisons between potentials by inspection easier. The numerical approach to approximating the solutions was also made more accurate by mitigating any truncation error due to numerical precision by making calculations in angstroms.
+
+\subsection{Eigenfunction Analysis and Comparisons}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.55]{Code/bias.eps}
+\caption[bias plot]{ Eigenstates of a triangular well show an obvious preference for the low energy region of the potential}
+\label{fig:bias}
+\end{center}
+\end{figure}
+
+From inspecting the solutions to Schr\"{o}dinger's time-independent wave equation for a given potential it is obvious that the number of nodes in the eigenfunction is directly related to its energy. Adding a bias to the infinite square well potential creates a triangular well in which the same eigenstates are visible, but the probability amplitudes of the eigenfunctions (and the probability density of the resulting wavefunction) are shifted to compensate for their preference for the low potential region (Figure \ref{fig:bias}). This same preference is what confines the bound states to the parabolic potential $U(x)=\frac{1}{2}\omega^2 x^\eta$ for $\eta=2$, which corresponds with harmonic oscillation about the lowest potential energy at the minima of the parabola. Softening the parabolic potential by slightly reducing the order of the potential also softens the restrictions on the eigenfunctions of the system (Figure \ref{fig:QHO}).  Note there are non-zero probability amplitudes just outside of the potential well, as is always the case in quantum mechanical systems with non-infinite potential barriers. When the solutions for the parabolic potential are plotted against those of the softened potential and scaled to reflect differences in eigenenergies, it is evident that the energies for the bound states of the softened potential are slightly lower and less quantized relative to the un-softened potential. 
+
+Finally, in order to develop a better understanding of the characteristics of a quantum harmonic oscillator and its corresponding potential, a triangular potential, $U(x)=C\cdot|x|$ is constructed with symmetry about the center of the defined well and its solutions are plotted in (Figure \ref{fig:QHO}).
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.55]{Code/qho.eps}
+\caption[QHO Plots]{Despite the close fit of the $\nabla_{C=1}$ potential and the similarity in eigenfunction\protect\footnotemark shape, there is a clear difference between the energy levels of the $\nabla$ potential and the QHO potential}
+\label{fig:QHO}
+\end{center}
+\end{figure}
+\footnotetext{Not normalized;numerical values are not of any significance. Note that the first eigenstate of the QHO is, by convention, referred to as $\phi_0$ instead of $\phi_1$}
+As was the case with the previously mentioned potentials, the eigenfunctions of the triangular ‘parabola’ are bound to the well formed by the two symmetric triangular wells. By controlling the slope of the walls of the potential we can observe eigenfunctions similar to that of the harmonic oscillator. The lowest (zero-point) energy of the pictured potential triangular potential, is higher than that of the QHO, and the eigenenergies appear to fall off more quickly. In general the eigenstates for the quantum harmonic oscillator and for the potentials resembling it all share the same shape and nodal structure – characteristics that can be attributed to the fundamentals of the quantum mechanics of waves.
+
+\newpage
+
+\section{Modelling an H-Cl Bond}
+The oscillation of molecules like HCl about their equilibrium separations is an example of a two-body quantum harmonic oscillator that can be approximated using potentials of the form discussed previous section. In order to model such a bond we must first determine its angular frequency, $\omega$. This can be obtained directly from a trusted reference text, or experimentally from a vibrational-rotational spectra such as the one pictured below in Figure \ref{fig:vrs}. 
+
+\newcommand\HCl{\text{HCl}}
+\newcommand\Hy{\text{H}}
+\newcommand\Cl{\text{Cl}}
+
+\subsection{Calculation of Parameters $\omega$ and $\mu$}
+From the spectrum below, the angular frequency for an HCl molecule consisting of the most abundant isotopes of Cl and H (\textsuperscript{1}H\textsuperscript{35}Cl) is approximately $2\pi\cdot 8.97\e{13}=5.636\e{14}$ Hz\cite{RefWorks:1}. Alternatively, according to a 1979 reference text \cite{RefWorks:2}, the wavenumber, $\nu$ for the frequency of interest is $2990.946$ cm\textsuperscript{-1} , and corresponds with an angular frequency of $\omega = 2\pi c\nu = 5.6339\e{14}$ Hz.
+
+The next step is to determine the effective mass of oscillating body, or the \textit{reduced mass} of the atoms in the two-bodied system. Using easily obtained literature values for the atomic masses of 
+Using easily obtained literature values for the atomic masses of \textsuperscript{35}Cl \& \textsuperscript{1}H alongside the formula for reduced mass:
+\begin{equation}
+\mu_{\text{\tiny\HCl}} = \frac{\mu_{\text{\tiny\Hy}}\mu_{\text{\tiny\Cl}}}{\mu_{\text{\tiny\Hy}}+\mu_{\text{\tiny\Cl}}} \times \frac{\SI{1.660468d-27}{\kilo\gram}}{\SI{1}{\amu}} = \SI{1.6266d-27}{\kilo\gram}
+\end{equation}
+
+\begin{figure}[b!]
+\begin{center}
+\includegraphics[scale=.75]{vrs}
+\caption[V/R spec]{The absorption spectrum for \textsuperscript{1}H\textsuperscript{35}Cl \cite{RefWorks:1}. The frequency in between the two lowest energy vibrational transitions (central peaks) can be approximated as the frequency of the HCl bond.}
+\label{fig:vrs}
+\end{center}
+\end{figure}
+
+Because the hydrogen is considerably less massive than the hydrogen, the effective mass for the harmonic oscillator is very close to the mass of hydrogen alone. This suggests that the chlorine stays relatively still while the bonded hydrogen oscillates back and forth as it is repelled and attracted by the larger halide.
+
+Finally, for convenience, we define a unit length, $x_{0} = \sqrt{\hbar/m\omega}$ such that the potential energy is equal to the lowest (zero-point) energy at a distance of $x_{0}$ from the equilibrium separation. This is also the furthest displacement distance (the turning point) for the analogous classical oscillation of the system. We now have what we need to plot the harmonic potential of an HCl bond. An isotope of HI is also plotted for comparison using the same method described above.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.5]{Code/hcl.eps}
+\caption[hcl plot]{As expected, the HCl bond is shorter than the HI bond and oscillates over a shorter distance. The discrete nature of the energy levels was also preserved. The long tick marks on the x axis indicate the classical turning points, $x = \pm x_{0}$, for an HCl bond.}
+\label{fig:hcl}
+\end{center}
+\end{figure}
+
+\subsection{Calculation of Bond Force Constant, $k$}
+With knowledge of the angular frequency and the reduced mass we can use the relationship relating $\omega$ and $\mu$, $\omega = \sqrt{k/\mu}$, to calculate the force constant, $k$, associated with the bond. The bond constant gives us insight into the strength of the attractive forces holding the bond together. 
+
+Rearranging the previous equation, the bond constant for HCl is approximately 516 N/m, compared to a bond constant of 314 N/m for HI. This is no surprise given that the bond between H and Cl involves stronger attractive forces (due to the smaller internuclear distances) and consequently produces a tighter harmonic potential with more confined bound states. This same result was visible in our plot of the harmonic potentials for HCl and HI, and is evidence of the feasibility of approximating two-body molecular systems as a quantum mechanical harmonic oscillation.
+
+\subsection{Classical Comparisons}
+Inspecting the hydrogen halide bond from the perspective of classical physics gives us many of the same results inferred from the quantum mechanical analysis. Using Figure \ref{fig:hcl} to compare the classical limits of oscillations, for example, to the theoretical limits of the quantum mechanical oscillation, we see that the classical turning points ($\pm x_{0}$) marked by the long ticks on the x axis of the plot, are just inside of the regions of the zeroth eigenstate corresponding to non-zero probability amplitudes. The small difference in oscillation distance is due to quantum mechanical ability for a particle to penetrate barriers whereas a classical particle would be reflected by the potential every time.
+
+We can also use the classical displacement boundaries to approximate the extent to which the vibrational modes of the molecules 'stretch' the bonds. For example, for an internuclear distance of 1.275\AA \cite{RefWorks:3}, and maximum classical bond length at the ground state, $2x_{0}=0.2141$\AA we can ascertain that the bond is stretched and compressed by approximately 16\%. This is a reasonable value considering the bond constant for HCl is of the magnitude of a slightly springy metal spring (for which a 16\% compression is reasonable).
+
+\subsubsection{Time Evolution}
+Finally, we will investigate time evolution of the HCl bond by weighting the eigenstates for the QHO with a Gaussian probability distribution to create a wave-packet. This will allow us to simulate the behaviour of the oscillating particle (the hydrogen atom) as time progresses. When the wave-packet is centered in the potential well and begins to oscillate back and forth we expect its average, or expected to position to be the center of the well, at the zero-point energy. Similarly, we know that the average momentum of any harmonic oscillation should also be zero. Figure \ref{fig:time} shows that the probability distrbution of the wave-packet broadens as time passes, only to return to the $t_0$ state after a (very) short period of time. Plots of the expectation values for position and momentum also demonstrated oscillatory behaviour, but at a magnitude so small that one can conclude that the expected values for position and momentum, denoted $<x>$ and $<p>$ respectively are both zero for all times, $t$.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.55]{Code/time.eps}
+\caption[time plot]{(Left) The wave-packet probability distribution at 5 equally spaced times. By time $t_6$ the system is close to returning to its original state. (Right) The expected values for position and momentum appear to be of an oscillatory nature, but have magnitudes so small that both $<x>$ and $<p>$ are essentially zero for all $t$}
+\label{fig:time}
+\end{center}
+\end{figure}
+
+\section{Conclusion}
+\textbf{The methodology that was employed was largely successful in proving that quantum harmonic oscillators are feasible approximations for the bond between two diatomic molecules, or more specifically, the bond between hydrogen and a halide.}
+
+The angular frequency, $\omega$ for the simple harmonic oscillator approximation of the HCl bond was first calculated through graphical analysis of  the rotational-vibrational spectrum for HCl, then confirmed by a second calculation using data from a reference text. The only other parameter required to plot the potential was the effective reduced mass of the bond, $\mu$, which was calculated using the atomic masses of both chlorine and hydrogen, and converting the resulting mass to a mass in kilograms. Using these two parameters, a plot of the harmonic potential of the HCl bond and its sister molecule, HI, was created.
+
+From analysing the plot we determined that the the approximation of the hydrogen halide bonds showed the expected characteristics - the shorter, more polar HCl bond had bound states more tightly confined by the steeper harmonic potential, and both approximations preserved the discrete nature of the energy levels of the chemical bond. Further evidence of the accuracy of the approximation was obtained by comparing what we learned from the graphs to what we learned from calculating the bond force constant, $k$. The magnitudes of the calculated force constants were in agreement with the idea of HI being the weaker of the two compared hydrogen halide bonds.
+
+Next, we considered the relationship between classical and quantum mechanical oscillations by relating the magnitude of the bond force constants to classical spring constants, and found the the magnitudes were comparable. Using the unit length $x_0$ that was defined as the displacement distance at the point where, in a classical oscillation, the particle would be reflected, we were able to determine an approximate compression/extension percentage (16\%) and once again relate it to a classical spring.
+
+The final step involved constructing a wave-packet from the approximated eigenstates to procure a more classical simulation of the behaviour of the modelled bond with respect to time. Because the system was oscillating, average positions and momentums were expected to be zero at any point in time. Plotting the probability distribution, $|\Psi|^2$, of the wave-packet revealed that the probability distribution broadened as time progressed before returning to its original state. The distributions, however, remained symmetrical, and thus it was no surprise that the expected values for the displacements and momentums were trivially small.
+
+In conclusion, every step of the project was successful in validating the feasibility of the quantum harmonic oscillator as an approximation of a hydrogen halide bond. Further research into the feasibility of the QHO for the approximation of more complicated potentials such as a double parabolic potential\cite{RefWorks:4} (corresponding to potential energy of the N atom in ammonia) or more accurate pair potentials like the Morse potential would like prove useful, especially after considering some of the countless applications for such approximations mentioned in the 
+\newpage
+\bibliography{library}
+\bibliographystyle{ieeetr}
+
+
+\end{document}
+
